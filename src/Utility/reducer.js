@@ -9,44 +9,48 @@ export const reducer = (state, action) => {
   switch (action.type) {
     case Type.ADD_TO_BASKET:
       // Check if the item is already in the basket
-      const existingItemIndex = state.basket.findIndex(
-        (item) => item.id === action.item.id
-      );
+      const existingItem = state.basket.find((item) => {
+        item.id === action.item.id;
+      });
 
-      if (existingItemIndex >= 0) {
-        // If item exists, increase its quantity
-        const updatedBasket = state.basket.map((item, index) =>
-          index === existingItemIndex
-            ? { ...item, amount: item.amount + 1 }
-            : item
-        );
-        return { ...state, basket: updatedBasket };
-      } else {
-        // If item doesn't exist, add it with a amount of 1
+    if (!existingItem) {
         return {
           ...state,
           basket: [...state.basket, { ...action.item, amount: 1 }],
         };
-      }
-
-    case Type.REMOVE_FROM_BASKET:
-      const itemIndexToRemove = state.basket.findIndex(
-        (item) => item.id === action.id
-      );
-      if (itemIndexToRemove >= 0) {
-        const updatedBasket = state.basket
-          .map((item, index) =>
-            index === itemIndexToRemove && item.amount > 1
-              ? { ...item, amount: item.amount - 1 }
-              : item
-          )
-          .filter((item) => item.amount > 0); // Remove items with 0 amount
-        return { ...state, basket: updatedBasket };
       } else {
-        updatedBasket.splice(index, 1);
-        return state;
+        const updatedBasket = state.basket.map((item) => {
+          return item.id === action.item.id
+            ? { ...item, amount: item.amount + 1 }
+            : item;
+        });
+        return {
+          ...state,
+          basket: updatedBasket,
+        };
       }
-
+    case Type.REMOVE_FROM_BASKET:
+      const index = state.basket.findIndex((item) => item.id === action.id);
+      let newBasket = [...state.basket];
+      if (index >= 0) {
+        if (newBasket[index].amount > 1) {
+          newBasket[index] = {
+            ...newBasket[index],
+            amount: newBasket[index].amount - 1,
+          };
+        } else {
+          newBasket.splice(index, 1);
+        }
+      }
+      return {
+        ...state,
+        basket: newBasket,
+      };
+    case Type.EMPTY_BASKET:
+      return {
+        ...state,
+        basket: [],
+      };
     case Type.SET_USER:
       return {
         ...state,

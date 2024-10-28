@@ -1,18 +1,19 @@
 import React, { useEffect, useState } from "react";
 import LayOut from "../../Components/LayOut/LayOut";
 import { useParams } from "react-router-dom";
-import { producturl } from "../../Api/endPointsUrl";
+import { productUrl } from "../../Api/endPoints";
 import axios from "axios";
-import ProdutCard from "../../Components/Produt/ProdutCard";
+import ProductCard from "../../Components/Product/ProductCard";
 import Loader from "../../Components/Loader/Loader";
 
-function ProdutDetail() {
+function ProductDetail() {
   const [products, setProduct] = useState({});
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
   const { productId } = useParams();
+
   useEffect(() => {
     axios
-      .get(`${producturl}/products/${productId}`)
+      .get(`${productUrl}/products/${productId}`)
       .then((res) => {
         setProduct(res.data);
         setIsLoading(false);
@@ -20,16 +21,16 @@ function ProdutDetail() {
       .catch((err) => {
         console.log(err);
         setIsLoading(false);
-      }),
-      [];
-  });
+      });
+  }, []);
+
   return (
     <LayOut>
       {isLoading ? (
         <Loader />
       ) : (
-        <ProdutCard
-          produt={products}
+        <ProductCard
+          product={products}
           flex={true}
           renderDisprit={true}
           renderAdd={true}
@@ -39,4 +40,4 @@ function ProdutDetail() {
   );
 }
 
-export default ProdutDetail;
+export default ProductDetail;

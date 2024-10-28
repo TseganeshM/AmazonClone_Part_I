@@ -1,5 +1,5 @@
 import React, { useContext, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import classes from "./Auth.module.css";
 import { auth } from "../../Utility/Firebase";
 import {
@@ -7,16 +7,19 @@ import {
   createUserWithEmailAndPassword,
 } from "firebase/auth";
 import { CircleLoader } from "react-spinners";
-import { DataContet } from "../../Components/DataProider/DataProrider";
+import { DataContext } from "../../Components/DataProvider/DataProrvider";
 import { Type } from "../../Utility/action.type";
 
 function Auth() {
+  //statemanagement
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState({ signin: false, signup: false });
   const [error, setError] = useState("");
-  const [{ user }, dispatch] = useContext(DataContet);
+  const [{ user }, dispatch] = useContext(DataContext);
   const navigate = useNavigate();
+  const navStateData = useLocation();
+
   const authHandler = async (e) => {
     e.preventDefault();
     if (e.target.name == "signin") {
@@ -29,7 +32,7 @@ function Auth() {
             user: userInfo.user,
           });
           setLoading({ ...loading, signin: false });
-          navigate("/");
+          navigate(navStateData?.state?.redirect || "/");
         })
         .catch((err) => {
           setError(err.message);
@@ -44,7 +47,7 @@ function Auth() {
             user: userInfo.user,
           });
           setLoading({ ...loading, signup: false });
-          navigate("/");
+          navigate(navStateData?.state?.redirect || "/");
         })
         .catch((err) => {
           setError(err.message);
@@ -63,10 +66,22 @@ function Auth() {
           ></img>
         </Link>
       </div>
-      {/*formd*/}
+      {/*form*/}
       <div className={classes.login_cotainer}>
-        <p>Already hae Account? </p>
+        <p>Already have Account? </p>
         <h1>Sign In</h1>
+        {navStateData?.state?.msg && (
+          <small
+            style={{
+              padding: "5px",
+              textAlign: "center",
+              color: "red",
+              fontWeight: "bold",
+            }}
+          >
+            {navStateData?.state?.msg}
+          </small>
+        )}
         <form action="">
           <div>
             <label htmlFor="email">E-mail</label>
@@ -97,7 +112,7 @@ function Auth() {
           </button>
         </form>
         <p>
-          By Signing, you agree to Cloned Amazon's
+          By Signing, you agree to Amazon's FAKE Cloned
           <br /> Conditions of Use and Privacy Notice.
         </p>
         <h4>New to Amazon?</h4>

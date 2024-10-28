@@ -26,8 +26,6 @@
 }
 
 .logo_container img {
-	/*width: 80%;*/
-	/*padding-top: 10px;*/
 	margin-left: 20px;
 	vertical-align: middle;
 }
@@ -52,7 +50,7 @@
 	border-radius: 8px;
 	overflow: hidden;
 	width: 100%;
-	/*flex: 1;*/
+	flex: 1;
 }
 
 .search select,
@@ -70,11 +68,11 @@ search input {
 .search input {
 	width: 100%;
 	margin-right: -2px;
-	padding: 10px;
+	padding: 11px;
 }
 
 .search svg {
-	padding: 8px;
+	padding: 7px;
 	background: #F3A847;
 	color: #000000;
 }
@@ -91,8 +89,8 @@ search input {
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	max-width: 450px;
-	gap: 10px;
+	max-width: 400px;
+	gap: 5px;
 	font-weight: bold;
 	padding: 5px;
 }

@@ -1,15 +1,15 @@
 import React from "react";
-import { categoryInfo } from "./CategoryImages.js";
-import CategoryCrd from "./CategoryCrd.jsx";
 import classes from "./Category.module.css";
+import CategoryCard from "./CategoryCard.jsx";
+import { categoryInfo } from "./CategoryImages.jsx";
 
 function Category() {
   return (
-    <section className={classes.category_cointainer}>
-      {categoryInfo.map((infos) => (
-        <CategoryCrd data={infos} key={infos.id}></CategoryCrd>
+    <div className={classes.category_cointainer}>
+      {categoryInfo?.map((infos, id) => (
+        <CategoryCard data={infos} key={id}></CategoryCard>
       ))}
-    </section>
+    </div>
   );
 }
 

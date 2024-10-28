@@ -1,18 +1,24 @@
 import React, { useContext } from "react";
+import classes from "./Header.module.css";
 import { Link } from "react-router-dom";
 import { IoSearch } from "react-icons/io5";
-import { BiCartDownload } from "react-icons/bi";
 import { IoLocationOutline } from "react-icons/io5";
+import { BiCartDownload } from "react-icons/bi";
 import Nav_logo from "../../assets/nav_logo.png";
-import classes from "./Header.module.css";
-import { DataContet } from "../DataProider/DataProrider";
 import LowerHeader from "./Lower_Header";
+import { DataContext } from "../DataProvider/DataProrvider";
 import { auth } from "../../Utility/Firebase";
+
 function Header() {
-  const [{ user, basket }, dispatch] = useContext(DataContet);
-  //console.log(basket.length);
+  const [{ user, basket }, dispatch] = useContext(DataContext);
+
+  const totalItem = basket?.reduce((amount, item) => {
+    return item.amount + amount;
+  }, 0);
+
   return (
     <section className={classes.fixed}>
+      {/*<setion></setion>*/}
       <section className={classes.header_container}>
         <div className={classes.logo_container}>
           <Link to="/">
@@ -34,7 +40,7 @@ function Header() {
           <select name="" id="">
             <option value="">All</option>
           </select>
-          <input type="text" name="" id="" placeholder="search Product"></input>{" "}
+          <input type="text" name="" id="" placeholder="search Product"></input>
           <IoSearch size={23} />
         </div>
         {/*order*/}
@@ -49,7 +55,7 @@ function Header() {
             </select>
           </Link>
           {/*Sign in*/}
-          <Link to={!user && "/autho"} className={classes.signIn}>
+          <Link to={!user && "/auth"} className={classes.signIn}>
             <div>
               {user ? (
                 <>
@@ -64,23 +70,21 @@ function Header() {
                 </>
               ) : (
                 <>
-                  <p>Hello, Sign In</p>{" "}
-                  <select name="" id="">
-                    <option value="">Account & Lists</option>
-                  </select>
+                  <p>Hello, Sign In</p>
+                  <span>Account & Lists</span>
                 </>
               )}
             </div>
           </Link>
           {/*Returns*/}
-          <Link to="/" className={classes.returns}>
+          <Link to="/orders" className={classes.returns}>
             <p>Returns</p>
             <span>& Orders</span>
           </Link>
           {/*Cart*/}
           <Link to="/cart" className={classes.cart}>
             <BiCartDownload size={45} />
-            <span>{basket.length}</span>Cart
+            <span>{totalItem}</span>Cart
           </Link>
         </div>
       </section>

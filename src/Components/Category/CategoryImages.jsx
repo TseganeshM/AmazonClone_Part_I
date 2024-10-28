@@ -7,13 +7,13 @@ export const categoryInfo = [
   },
   {
     id: 2,
-    title: "Discoer Fashion Triends",
-    category: "Women's clothing",
+    title: "Discover Fashion Triends",
+    category: "women's clothing",
     image: "https://fakestoreapi.com/img/51eg55uWmdL._AC_UX679_.jpg",
   },
   {
     id: 3,
-    title: "Mens Clothing",
+    title: "Men's Clothing",
     category: "men's clothing",
     image: "https://fakestoreapi.com/img/71li-ujtlUL._AC_UX679_.jpg",
   },

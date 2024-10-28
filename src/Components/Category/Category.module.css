@@ -36,4 +36,9 @@
 	display: grid;
 	grid-template-columns: repeat(4, 1fr);
 	place-items: center;
+	/*grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+	max-width: 1600px;
+	gap: 50px;
+	margin-right: auto;
+	margin-left: auto;*/
 }

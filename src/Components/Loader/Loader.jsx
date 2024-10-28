@@ -1,6 +1,6 @@
 import React from "react";
 import ClipLoader from "react-spinners/ClipLoader";
-//import FadeLoader from "react-spinners/FadeLoader";
+
 function Loader() {
   return (
     <div
@@ -12,7 +12,6 @@ function Loader() {
       }}
     >
       <ClipLoader color="blue" />
-      {/*<FadeLoader color="blue" />*/}
     </div>
   );
 }

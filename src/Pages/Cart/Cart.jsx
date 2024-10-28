@@ -1,26 +1,29 @@
 import React, { useContext } from "react";
-import LayOut from "../../Components/LayOut/LayOut";
-import { DataContet } from "../../Components/DataProider/DataProrider";
-import ProdutCard from "../../Components/Produt/ProdutCard";
-import Curreny from "../../Components/Curreny/Curreny";
-import { Link } from "react-router-dom";
 import classes from "./Cart.module.css";
+import LayOut from "../../Components/LayOut/LayOut";
+import { DataContext } from "../../Components/DataProvider/DataProrvider";
+import ProductCard from "../../Components/Product/ProductCard";
+import { Link } from "react-router-dom";
 import { Type } from "../../Utility/action.type";
 import { FaSortUp } from "react-icons/fa";
 import { FaAngleDown } from "react-icons/fa";
+import CurrencyFormat from "../../Components/CurrencyFormat/CurrencyFormat";
 
 function Cart() {
-  const [{ basket, user }, dispatch] = useContext(DataContet);
+  const [{ basket, user }, dispatch] = useContext(DataContext);
   const total = basket.reduce((amount, item) => {
     return item.price * item.amount + amount;
   }, 0);
   const increment = (item) => {
-    dispatch({ type: Type.ADD_TO_BASKET, item: item });
+    dispatch({
+      type: Type.ADD_TO_BASKET,
+      item,
+    });
   };
   const decrement = (id) => {
     dispatch({
       type: Type.REMOVE_FROM_BASKET,
-      id: id,
+      id,
     });
   };
   return (
@@ -36,9 +39,9 @@ function Cart() {
             basket?.map((item, i) => {
               return (
                 <section className={classes.cart_product}>
-                  <ProdutCard
+                  <ProductCard
                     key={i}
-                    produt={item}
+                    product={item}
                     renderDisprit={true}
                     flex={true}
                     renderAdd={false}
@@ -67,7 +70,7 @@ function Cart() {
           <div className={classes.subtotal}>
             <div>
               <p>Total_Items:({basket?.length}items) </p>
-              <Curreny amount={total} />
+              <CurrencyFormat amount={total} />
             </div>
             <span>
               <input type="checkbox" />

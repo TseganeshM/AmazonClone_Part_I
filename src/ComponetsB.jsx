@@ -1,5 +1,5 @@
 import React from "react";
-import { useColor } from "./contextProider";
+import { useColor } from "./contextProvider";
 import "./assets/styles.css";
 
 function ComponetsB() {

@@ -1,5 +1,5 @@
 import React from "react";
-import { useColor } from "./contextProider";
+import { useColor } from "./contextProvider";
 
 function ComponentA() {
   const { colorToggler } = useColor();

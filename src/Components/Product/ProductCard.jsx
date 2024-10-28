@@ -1,16 +1,15 @@
 import React, { useContext } from "react";
 import Rating from "@mui/material/Rating";
-import Curreny from "../Curreny/Curreny";
+import CurrencyFormat from "../CurrencyFormat/CurrencyFormat";
 import classes from "./Product.module.css";
-import { Button } from "@mui/material";
 import { Link } from "react-router-dom";
-import { DataContet } from "../DataProider/DataProrider";
+import { DataContext } from "../DataProvider/DataProrvider";
 import { Type } from "../../Utility/action.type";
 
-function ProdutCard({ produt, flex, renderDisprit, renderAdd }) {
-  const { id, title, price, image, rating, description } = produt;
+function ProductCard({ product, flex, renderDisprit, renderAdd }) {
+  const { id, title, price, image, rating, description } = product;
 
-  const [state, dispatch] = useContext(DataContet);
+  const [state, dispatch] = useContext(DataContext);
 
   const addtoCart = () => {
     dispatch({
@@ -37,16 +36,16 @@ function ProdutCard({ produt, flex, renderDisprit, renderAdd }) {
           <small>{rating?.count}</small>
         </div>
         <div>
-          <Curreny amount={price} />
+          <CurrencyFormat amount={price} />
         </div>
         {renderAdd && (
-          <Button className={classes.button} onClick={addtoCart}>
+          <button className={classes.button} onClick={addtoCart}>
             Add to cart
-          </Button>
+          </button>
         )}
       </div>
     </div>
   );
 }
 
-export default ProdutCard;
+export default ProductCard;

@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
+import classes from "./Results.module.css";
 import LayOut from "../../Components/LayOut/LayOut";
 import { useParams } from "react-router-dom";
 import axios from "axios";
-import { producturl } from "../../Api/endPointsUrl";
-import ProdutCard from "../../Components/Produt/ProdutCard";
-import classes from "./Results.module.css";
+import { productUrl } from "../../Api/endPoints";
+import ProductCard from "../../Components/Product/ProductCard";
 import Loader from "../../Components/Loader/Loader";
 
 function Results() {
@@ -15,13 +15,16 @@ function Results() {
 
   useEffect(() => {
     axios
-      .get(`${producturl}/products/category/${categoryName}`)
+      .get(`${productUrl}/products/category/${categoryName}`)
       .then((res) => {
         setResults(res.data);
+        setIsLoading(false);
       })
-      .catch((err) => console.log(err)),
-      [];
-  });
+      .catch((err) => {
+        console.log(err);
+        setIsLoading(false);
+      });
+  }, []);
 
   return (
     <LayOut>
@@ -34,9 +37,9 @@ function Results() {
         ) : (
           <div className={classes.product_container}>
             {results?.map((singleprodut, id) => (
-              <ProdutCard
+              <ProductCard
                 key={id}
-                produt={singleprodut}
+                product={singleprodut}
                 renderDisprit={false}
                 renderAdd={true}
               />
