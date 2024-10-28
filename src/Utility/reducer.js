@@ -9,11 +9,11 @@ export const reducer = (state, action) => {
   switch (action.type) {
     case Type.ADD_TO_BASKET:
       // Check if the item is already in the basket
-      const existingItem = state.basket.find((item) => {
-        item.id === action.item.id;
-      });
+      const existingItem = state.basket.find(
+        (item) => item.id === action.item.id
+      );
 
-    if (!existingItem) {
+      if (!existingItem) {
         return {
           ...state,
           basket: [...state.basket, { ...action.item, amount: 1 }],

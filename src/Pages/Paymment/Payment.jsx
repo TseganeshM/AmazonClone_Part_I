@@ -48,7 +48,7 @@ function Payment() {
       //console.log(response.data);
       const clientSecret = response.data?.clientSecret;
 
-      //2. Clent side or react side onfirmation;
+      //2. Clent side or react side confirmation;
       const { paymentIntent } = await stripe.confirmCardPayment(clientSecret, {
         payment_method: {
           card: elements.getElement(CardElement),
