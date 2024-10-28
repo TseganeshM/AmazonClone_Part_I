@@ -7,9 +7,9 @@ import Nav_logo from "../../assets/nav_logo.png";
 import classes from "./Header.module.css";
 import { DataContet } from "../DataProider/DataProrider";
 import LowerHeader from "./Lower_Header";
-
+import { auth } from "../../Utility/Firebase";
 function Header() {
-  const [{ basket }, dispatch] = useContext(DataContet);
+  const [{ user, basket }, dispatch] = useContext(DataContet);
   //console.log(basket.length);
   return (
     <section className={classes.fixed}>
@@ -35,7 +35,7 @@ function Header() {
             <option value="">All</option>
           </select>
           <input type="text" name="" id="" placeholder="search Product"></input>{" "}
-          <IoSearch size={25} />
+          <IoSearch size={23} />
         </div>
         {/*order*/}
         <div className={classes.order_container}>
@@ -49,11 +49,28 @@ function Header() {
             </select>
           </Link>
           {/*Sign in*/}
-          <Link to="/autho" className={classes.signIn}>
-            <p>Hello, sign in</p>
-            <select name="" id="">
-              <option value="">Account & Lists</option>
-            </select>
+          <Link to={!user && "/autho"} className={classes.signIn}>
+            <div>
+              {user ? (
+                <>
+                  <p>Welcome {user?.email?.split(`@`)[0]}</p>
+                  <span
+                    onClick={() => {
+                      auth.signOut();
+                    }}
+                  >
+                    Sign Out
+                  </span>
+                </>
+              ) : (
+                <>
+                  <p>Hello, Sign In</p>{" "}
+                  <select name="" id="">
+                    <option value="">Account & Lists</option>
+                  </select>
+                </>
+              )}
+            </div>
           </Link>
           {/*Returns*/}
           <Link to="/" className={classes.returns}>

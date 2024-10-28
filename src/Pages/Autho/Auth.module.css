@@ -1,0 +1,88 @@
+.login {
+	height: 100vh;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+.login img {
+	margin: 30px auto;
+	width: 100px;
+}
+
+.login_cotainer {
+	width: 350v;
+	display: flex;
+	flex-direction: column;
+	border-radius: 5px;
+	border: 1px solid lightgray;
+	padding: 20px;
+}
+
+.login_cotainer h4 {
+	align-items: center;
+}
+
+.login_cotainer h1 {
+	font-size: 20px;
+	margin: 20px 0px;
+}
+
+.login_cotainer form {
+	display: flex;
+	flex-direction: column;
+	gap: 15px;
+}
+
+.login_cotainer form div {
+	display: flex;
+	flex-direction: column;
+	gap: 5px;
+}
+
+.login_cotainer form input {
+	margin-bottom: 5px;
+	padding: 8px 16px;
+	background-color: white;
+	width: 100%;
+	border: 2px solid gray;
+	border-radius: 3px;
+	box-sizing: border-box;
+}
+
+.login_cotainer form input:focus {
+	outline: 2px solid skyblue;
+}
+
+.login_signin_btn {
+	border: none;
+	background: #F7CA00;
+	border-radius: 5px;
+	width: 100%;
+	height: 30px;
+	margin-top: 20px;
+	cursor: pointer;
+}
+
+.login_signin_btn:hover {
+	background: #F7CA30;
+}
+
+.login_cotainer p {
+	padding: 10px 0px;
+	font-size: 14px;
+}
+
+.login_register_btn {
+	border: 1px solid grey;
+	background: #F7FAFA;
+	border-radius: 5px;
+	width: 290px;
+	height: 30px;
+	margin-top: 10px;
+	cursor: pointer;
+}
+
+.login_register_btn:hover {
+	background: #F7FA99;
+}

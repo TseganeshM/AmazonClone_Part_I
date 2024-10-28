@@ -1,14 +1,13 @@
 import { Type } from "./action.type";
 
-export const initialState = { basket: [] };
+export const initialState = {
+  basket: [],
+  user: null,
+};
 
 export const reducer = (state, action) => {
   switch (action.type) {
     case Type.ADD_TO_BASKET:
-      //const existingItem = state.basket.find((item) => {
-      //  item.id === action.item.id;
-      //});
-
       // Check if the item is already in the basket
       const existingItemIndex = state.basket.findIndex(
         (item) => item.id === action.item.id
@@ -41,16 +40,18 @@ export const reducer = (state, action) => {
               ? { ...item, amount: item.amount - 1 }
               : item
           )
-          .filter((item) => item.amount > 0); // Remove items with 0 quantity
-
+          .filter((item) => item.amount > 0); // Remove items with 0 amount
         return { ...state, basket: updatedBasket };
       } else {
         updatedBasket.splice(index, 1);
-        console.log(
-          `Can't remove product (id: ${action.id}) as it's not in the basket!`
-        );
         return state;
       }
+
+    case Type.SET_USER:
+      return {
+        ...state,
+        user: action.user,
+      };
     default:
       return state;
   }
